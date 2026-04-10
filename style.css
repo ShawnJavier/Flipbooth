@@ -25,6 +25,10 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   font-family: "DM Sans", sans-serif;
   background: var(--warm-white);
@@ -409,6 +413,7 @@ h1 {
   .hero-right {
     height: 58vw;
     min-height: 240px;
+    grid-template-columns: 1fr;
   }
 
   .hero-badge {
@@ -593,6 +598,9 @@ h1 {
   width: 100%;
   aspect-ratio: 4/5;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   position: relative;
   background: var(--brown-pale);
@@ -612,10 +620,10 @@ h1 {
 }
 
 .about-img img {
-  width: 100%;
+  width: 95%;
   height: 100%;
   object-fit: contain;
-  transform: scale(0.9); /* 👈 makes it slightly smaller */
+   transform: scale(1.02);
 }
 
 
@@ -642,39 +650,6 @@ h1 {
   border-radius: 2px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
   z-index: 4;
-}
-
-.about-stat {
-  position: absolute;
-  bottom: -24px;
-  right: -18px;
-  width: 142px;
-  height: 142px;
-  background: var(--warm-white);
-  border-radius: 3px;
-  border: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.07);
-}
-
-.about-stat .num {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 2.6rem;
-  font-weight: 300;
-  color: var(--brown);
-  line-height: 1;
-}
-
-.about-stat .lbl {
-  font-size: 0.66rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--mid);
-  text-align: center;
 }
 
 .about-list {
