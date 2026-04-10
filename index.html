@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="icon" type="image/x-icon" href="img/flipbooth_logo.jpg">
   <link rel="stylesheet" href="style.css">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="script.js" defer></script>
   
 </head>
 
@@ -116,17 +116,16 @@
   <section class="sec" id="about">
     <div class="about-wrap">
       <div class="about-img-wrap rev">
-        <div class="about-img"></div>
-        <!-- <div class="about-stat">
-        <span class="num">Capture</br/></span>
-        <span class="lbl"></br/>The<br/><br/>Moment</span>
-      </div> -->
+        <div class="about-tag">The Booth</div>
+        <div class="about-img">
+            <img src="img/booth.png" alt="FlipBooth open-air photobooth setup" />
+        </div>
       </div>
-      <div class="rev">
+
+      <div class="rev rev-delay-1">
         <p class="stag">About FlipBooth</p>
         <h2 class="stitle">We make your<br />guests <em>shine</em></h2>
-        <p class="ssub">A boutique open-air photo booth service dedicated to creating warm, beautiful photo experiences.
-          No cramped curtains — just gorgeous open-air setups that blend into your event's aesthetic.</p>
+        <p class="ssub">A boutique open-air photo booth service dedicated to creating warm, beautiful photo experiences. No cramped curtains — just gorgeous open-air setups that blend into your event's aesthetic.</p>
         <div class="about-list">
           <div class="about-item">
             <span class="anum">01</span>
@@ -237,20 +236,29 @@
             <p class="dlbl">Service Area</p>
             <p class="dval">Adelaide &amp; surrounds · travel available</p>
           </div>
+          <div class="social-icons">
+  <a href="https://www.facebook.com/FlipBoothAdl" target="_blank">
+    <p class="dlbl">See our latest events</p>
+    <img src="img/facebook.svg" alt="Instagram">
+  </a>
+  <a href="https://www.instagram.com/flipbooth_adl/" target="_blank">
+    <img src="img/instagram.svg" alt="Facebook">
+  </a>
+</div>
         </div>
       </div>
       <div class="rev">
-        <form class="cform" id="cform">
+        <form class="cform" id="cform" novalidate>
           <div class="frow">
-            <div class="fg"><label for="fn">First Name</label><input type="text" name="first_name" id="fn" placeholder="Alex" /></div>
-            <div class="fg"><label for="ln">Last Name</label><input type="text" name="last_name" id="ln" placeholder="Smith" /></div>
+            <div class="fg"><label for="fn">First Name</label><input type="text" required name="first_name" id="fn" placeholder="Alex" /></div>
+            <div class="fg"><label for="ln">Last Name</label><input type="text" required name="last_name" id="ln" placeholder="Smith" /></div>
           </div>
-          <div class="fg"><label for="em">Email Address</label><input type="email" name="email" id="em"
+          <div class="fg"><label for="em">Email Address</label><input type="email" required name="email" id="em"
               placeholder="Alex@example.com" /></div>
           <div class="frow">
             <div class="fg">
               <label for="et">Event Type</label>
-              <select name="event_type" id="et">
+              <select name="event_type" id="et" required>
                 <option value="" disabled selected>Select type</option>
                 <option>Wedding</option>
                 <option>Birthday Party</option>
@@ -258,11 +266,11 @@
                 <option>Other</option>
               </select>
             </div>
-            <div class="fg"><label for="ed">Event Date</label><input type="date" name="event_date"id="ed" /></div>
+            <div class="fg"><label for="ed">Event Date</label><input type="date" name="event_date"id="ed" required /></div>
           </div>
           <div class="fg">
             <label for="pk">Package Interest</label>
-            <select name="package" id="pk">
+            <select name="package" id="pk" required>
               <option value="" disabled selected>Select package</option>
               <option>The Essential — $329</option>
               <option>The Signature — $629</option>
@@ -291,127 +299,7 @@
       </ul>
     </div>
   </footer>
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <script>
-    (function(){
-      emailjs.init("dFQ4eGmHjb9F6GYPJ"); // replace this
-    })();
-    </script>
-  <script>
-    /* custom cursor 
-    if(window.matchMedia('(pointer:fine)').matches){
-      const c=document.getElementById('cur'),r=document.getElementById('curRing');
-      document.addEventListener('mousemove',e=>{
-        c.style.cssText+=`;left:${e.clientX}px;top:${e.clientY}px`;
-        r.style.cssText+=`;left:${e.clientX}px;top:${e.clientY}px`;
-      });
-      document.querySelectorAll('a,button').forEach(el=>{
-        el.addEventListener('mouseenter',()=>{c.classList.add('big');r.classList.add('big');});
-        el.addEventListener('mouseleave',()=>{c.classList.remove('big');r.classList.remove('big');});
-      });
-    }*/
-
-    /* nav scroll */
-    window.addEventListener('scroll', () => {
-      document.getElementById('nav').classList.toggle('scrolled', scrollY > 40);
-    }, { passive: true });
-
-    /* hamburger */
-    const ham = document.getElementById('ham'), mob = document.getElementById('mob');
-    ham.addEventListener('click', () => {
-      ham.classList.toggle('open'); mob.classList.toggle('open');
-      document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
-    });
-    document.querySelectorAll('.mob-link').forEach(l => l.addEventListener('click', () => {
-      ham.classList.remove('open'); mob.classList.remove('open');
-      document.body.style.overflow = '';
-    }));
-
-    /* reveal */
-    const io = new IntersectionObserver(es => es.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('vis');
-    }), { threshold: .1 });
-    document.querySelectorAll('.rev').forEach(el => io.observe(el));
-
-    /* form */
-    // document.getElementById('cform').addEventListener('submit', e => {
-    //   e.preventDefault();
-    //   e.target.querySelector('.btn-submit').style.display = 'none';
-    //   document.getElementById('fsuc').style.display = 'block';
-    // });
-
-
-//     const form = document.querySelector(".cform");
-// const successMsg = document.getElementById("fsuc");
-
-// form.addEventListener("submit", async (e) => {
-//   e.preventDefault();
-
-//   const data = new FormData(form);
-
-//   const response = await fetch(form.action, {
-//     method: form.method,
-//     body: data,
-//     headers: { 'Accept': 'application/json' }
-//   });
-
-//   if (response.ok) {
-//     form.reset();
-//     successMsg.style.display = "block";
-//   } else {
-//     alert("Oops! Something went wrong.");
-//   }
-// });
-
-document.getElementById("cform").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  emailjs.sendForm(
-    "service_hswhai5",   // replace
-    "template_thwvyh7",  // replace
-    this
-  ).then(function() {
-    document.querySelector(".btn-submit").style.display = "none";
-    document.getElementById("fsuc").style.display = "block";
-  }, function(error) {
-    alert("Failed to send enquiry. Please try again.");
-    console.error(error);
-  });
-});
-
-//////////////////////////////////////
-
-document.getElementById("cform").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const form = this;
-
-  // Send to YOU (admin)
-  emailjs.sendForm(
-    "service_hswhai5",
-    "template_thwvyh7",
-    form
-  ).then(function() {
-
-    // Send AUTO REPLY to client
-    return emailjs.sendForm(
-      "service_hswhai5",
-      "template_w33suou",
-      form
-    );
-
-  }).then(function() {
-
-    document.querySelector(".btn-submit").style.display = "none";
-    document.getElementById("fsuc").style.display = "block";
-
-  }).catch(function(error) {
-    console.error("FAILED...", error);
-    alert("Something went wrong. Try again.");
-  });
-
-});
-  </script>
+   <div id="toast" class="toast"></div>
 </body>
 
 </html>
