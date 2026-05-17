@@ -507,23 +507,23 @@ h1 {
 
 .gi:nth-child(1) {
   grid-row: 1/3;
-  background-image: url("img/wedding.png");
+  background-image: url("img/adelaide-photobooth-event-01.jpg");
 }
 
 .gi:nth-child(2) {
-  background-image: url("img/birthday.png");
+  background-image: url("img/adelaide-photobooth-event-02.jpg");
 }
 
 .gi:nth-child(3) {
-  background-image: url(img/corporate.png);
+  background-image: url("img/adelaide-photobooth-event-03.png");
 }
 
 .gi:nth-child(4) {
-  background-image: url("img/party.png");
+  background-image: url("img/adelaide-photobooth-event-04.jpg");
 }
 
 .gi:nth-child(5) {
-  background-image: url("img/holloween.png");
+  background-image: url("img/adelaide-photobooth-event-05.jpg");
 }
 
 /* .gi:nth-child(1){grid-row:1/3;background:#c9b49a;}
