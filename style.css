@@ -225,8 +225,8 @@ nav.scrolled {
 }
 
 .eyebrow {
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--brown-light);
   margin-bottom: 22px;
