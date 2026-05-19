@@ -137,7 +137,7 @@ nav.scrolled {
   display: block;
   width: 24px;
   height: 1.5px;
-  background: var(--charcoal);
+  background: var(--brown-pale);
   border-radius: 2px;
   transition: transform 0.3s, opacity 0.3s;
 }
