@@ -471,6 +471,14 @@ h1 {
   max-width: 480px;
 }
 
+.ssub1 {
+  font-size: clamp(0.86rem, 1.5vw, 0.97rem);
+  line-height: 1.8;
+  opacity: 0.8;
+  color: var(--mid);
+  max-width: 370px;
+}
+
 /* ── GALLERY ── */
 .gallery-bg {
   background: var(--cream);
@@ -1260,5 +1268,49 @@ body.show-errors .fg.error textarea {
 @media (max-width: 560px) {
   .testi-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ── KEYCHAIN SECTION ── */
+.kb-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(36px, 6vw, 88px);
+  align-items: center;
+}
+
+.kb-text .ssub {
+  max-width: 440px;
+}
+
+.kb-badge {
+  position: absolute;
+  bottom: -18px;
+  right: 20px;
+  background: #4f2b1d;
+  border-radius: 100px;
+  padding: 10px 22px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  z-index: 4;
+}
+
+.kb-badge span {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: #eadbc8;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .kb-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-badge {
+    bottom: -14px;
+    right: 12px;
   }
 }
