@@ -275,6 +275,7 @@
         <ul class="pfeat">
           <li>2 hours open-air photobooth</li>
           <li>Unlimited photobooth session</li>
+          <li>2 printed photos per session</li>
           <li>Professional camera & lighting</li>
           <li>Standard backdrop</li>
           <li>Basic photo template (2x6)</li>
@@ -293,9 +294,10 @@
         <ul class="pfeat">
           <li>4 hours open-air photobooth</li>
           <li>Unlimited photobooth session</li>
+          <li>2 printed photos per session</li>
           <li>Professional camera & lighting</li>
           <li>Standard backdrop</li>
-          <li>Customised photo template (2x6 or 4x6)</li>
+          <li>Customised photo template (2x6)</li>
           <li>Customised booth welcome screen</li>
           <li>Customised touch screen display</li>
           <li>Stylish props</li>
@@ -314,6 +316,7 @@
         <ul class="pfeat">
           <li>6 hours open-air photobooth</li>
           <li>Unlimited photobooth session</li>
+          <li>2 printed photos per session</li>
           <li>Professional camera & lighting</li>
           <li>Premium backdrop options</li>
           <li>Customised photo template (2x6 or 4x6)</li>
@@ -387,7 +390,13 @@
             </div>
             <div class="fg"><label for="ed">Event Date</label><input type="date" name="event_date"id="ed" required /></div>
           </div>
+          <div class="fg" id="form-group">
+            <label for="suburb">Event Location</label>
+            <input type="text" id="suburb" name="suburb" placeholder="Start typing your suburb..." autocomplete="off" required />
+          </div>
+          <div id="suburbOptions" class="fg"></div>          
           <div class="fg">
+            
             <label for="pk">Package Interest</label>
             <select name="package" id="pk" required>
               <option value="" disabled selected>Select package</option>

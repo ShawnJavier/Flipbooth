@@ -1622,3 +1622,40 @@ body.show-errors .fg.error textarea {
     background-position: center;
     background-repeat: no-repeat;
 }
+
+#suburbOptions {
+    margin-top: 5px;
+    width: 100%;
+}
+
+/* Each individual suburb suggestion */
+#suburbOptions .suburb-option {
+    padding: 13px 16px;
+    cursor: pointer;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    color: #30251f;
+
+    background-color: transparent;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+/* Only the suburb you're hovering over */
+#suburbOptions .suburb-option:hover {
+    background-color: #4f2b1d;
+    color: #ffffff;
+}
+
+/* Suburb name */
+#suburbOptions .suburb-option:hover strong {
+    color: #ffffff;
+}
+
+/* Postcode */
+#suburbOptions .suburb-option:hover span {
+    color: #e8ddd5;
+}

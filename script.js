@@ -106,3 +106,224 @@
     els.forEach(function (el) { io.observe(el); });
   })();
 
+
+  const suburbInput = document.getElementById("suburb");
+const suggestionsBox = document.getElementById("suburbOptions");
+
+let suburbs = [];
+
+
+/* Load South Australian suburb/postcode data */
+
+fetch("https://raw.githubusercontent.com/schappim/australian-postcodes/master/data/by-state/SA.csv")
+    .then(response => response.text())
+    .then(csv => {
+
+        const rows = parseCSV(csv);
+
+        rows.slice(1).forEach(row => {
+
+            const postcode = row[0]?.trim();
+            const suburb = row[1]?.trim();
+            const state = row[2]?.trim();
+            const category = row[5]?.trim();
+
+            if (
+                state === "SA" &&
+                category === "Delivery Area" &&
+                postcode &&
+                suburb
+            ) {
+
+                suburbs.push({
+                    suburb: formatSuburb(suburb),
+                    postcode: postcode
+                });
+
+            }
+
+        });
+
+        /* Sort alphabetically */
+
+        suburbs.sort((a, b) =>
+            a.suburb.localeCompare(b.suburb)
+        );
+
+    })
+    .catch(error => {
+        console.error("Unable to load suburb data:", error);
+    });
+
+
+
+/* Format suburb names */
+
+function formatSuburb(name) {
+
+    return name
+        .toLowerCase()
+        .replace(/\b\w/g, letter => letter.toUpperCase());
+
+}
+
+
+
+/* Simple CSV parser */
+
+function parseCSV(text) {
+
+    const rows = [];
+
+    let row = [];
+    let value = "";
+    let quotes = false;
+
+    for (let i = 0; i < text.length; i++) {
+
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"' && quotes && next === '"') {
+
+            value += '"';
+            i++;
+
+        }
+
+        else if (char === '"') {
+
+            quotes = !quotes;
+
+        }
+
+        else if (char === "," && !quotes) {
+
+            row.push(value);
+            value = "";
+
+        }
+
+        else if (
+            (char === "\n" || char === "\r") &&
+            !quotes
+        ) {
+
+            if (char === "\r" && next === "\n") {
+                i++;
+            }
+
+            row.push(value);
+
+            if (row.length > 1) {
+                rows.push(row);
+            }
+
+            row = [];
+            value = "";
+
+        }
+
+        else {
+
+            value += char;
+
+        }
+
+    }
+
+    if (value || row.length) {
+
+        row.push(value);
+
+        if (row.length > 1) {
+            rows.push(row);
+        }
+
+    }
+
+    return rows;
+
+}
+
+
+
+/* Search suburbs */
+
+suburbInput.addEventListener("input", function() {
+
+    const search = this.value
+        .toLowerCase()
+        .trim();
+
+    suggestionsBox.innerHTML = "";
+
+    if (!search) {
+
+        suggestionsBox.style.display = "none";
+        return;
+
+    }
+
+
+    const matches = suburbs
+        .filter(item =>
+            `${item.suburb} ${item.postcode}`
+                .toLowerCase()
+                .includes(search)
+        )
+        .slice(0, 10);
+
+
+    if (!matches.length) {
+
+        suggestionsBox.style.display = "none";
+        return;
+
+    }
+
+
+    matches.forEach(item => {
+
+        const option =
+            document.createElement("div");
+
+        option.className = "suburb-option";
+
+        option.innerHTML =
+            `<strong>${item.suburb}</strong>
+             <span>— ${item.postcode}</span>`;
+
+
+        option.addEventListener("click", function() {
+
+            suburbInput.value =
+                `${item.suburb} — ${item.postcode}`;
+
+            suggestionsBox.style.display = "none";
+
+        });
+
+
+        suggestionsBox.appendChild(option);
+
+    });
+
+
+    suggestionsBox.style.display = "block";
+
+});
+
+
+
+/* Close suggestions when clicking elsewhere */
+
+document.addEventListener("click", function(event) {
+
+    if (!event.target.closest("#form-group")) {
+
+        suggestionsBox.style.display = "none";
+
+    }
+
+});
