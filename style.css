@@ -1458,16 +1458,26 @@ body.show-errors .fg.error textarea {
 .testi-head .stitle { color: var(--charcoal); }
 .testi-head .ssub { margin: 0 auto; color: var(--mid); }
 
-/* .testi-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(220px, 1fr));
-  gap: clamp(14px, 2vw, 22px);
-} */
 .testi-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(260px, 340px));
-  justify-content: center;
+   display: flex;
   gap: clamp(14px, 2vw, 22px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 5px 4px 25px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.testi-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.testi-grid .tcard {
+  flex: 0 0 calc((100% - 44px) / 3);
+  min-width: 0;
+  scroll-snap-align: start;
 }
 
 .tcard {
@@ -1561,15 +1571,104 @@ body.show-errors .fg.error textarea {
   margin-top: clamp(26px, 4vw, 42px);
 }
 
-/* Responsive */
+/* Testimonial Responsive */
 @media (max-width: 1024px) {
-  .testi-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .testi-grid .tcard {
+    flex: 0 0 calc((100% - 22px) / 2);
   }
 }
+
 @media (max-width: 560px) {
   .testi-grid {
-    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .testi-grid .tcard {
+    flex: 0 0 100%;
+  }
+}
+
+/* ── TESTIMONIAL CAROUSEL ARROWS ── */
+
+.testi-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testi-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid var(--border);
+  border-radius: 50%;
+
+  background: #ffffff;
+  color: var(--brown);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: Arial, sans-serif;
+  font-size: 30px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.testi-arrow:hover {
+  background: var(--brown);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.testi-prev {
+  left: -50px;
+}
+
+.testi-next {
+  right: -50px;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .testi-prev {
+    left: -10px;
+  }
+
+  .testi-next {
+    right: -10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 560px) {
+  .testi-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 26px;
+  }
+
+  .testi-prev {
+    left: 6px;
+  }
+
+  .testi-next {
+    right: 6px;
   }
 }
 

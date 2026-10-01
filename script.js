@@ -327,3 +327,35 @@ document.addEventListener("click", function(event) {
     }
 
 });
+// feedback carousel
+document.addEventListener("DOMContentLoaded", function () {
+  const grid = document.querySelector(".testi-grid");
+  const prev = document.querySelector(".testi-prev");
+  const next = document.querySelector(".testi-next");
+
+  if (!grid || !prev || !next) return;
+
+  function scrollAmount() {
+    const card = grid.querySelector(".tcard");
+
+    if (!card) return 0;
+
+    const gap = parseFloat(getComputedStyle(grid).gap) || 0;
+
+    return card.offsetWidth + gap;
+  }
+
+  next.addEventListener("click", function () {
+    grid.scrollBy({
+      left: scrollAmount(),
+      behavior: "smooth"
+    });
+  });
+
+  prev.addEventListener("click", function () {
+    grid.scrollBy({
+      left: -scrollAmount(),
+      behavior: "smooth"
+    });
+  });
+});
