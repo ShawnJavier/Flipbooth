@@ -64,6 +64,9 @@
        }
 
        // EMAILJS (unchanged)
+
+       const submitButton = document.querySelector(".btn-submit");
+        submitButton.disabled = true;
        emailjs.sendForm(
            "service_hswhai5",
            "template_thwvyh7",
