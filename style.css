@@ -1269,7 +1269,8 @@ h1 {
 
 .fg input,
 .fg select,
-.fg textarea {
+.fg textarea,
+#eventTime {
   background: var(--cream);
   border: 1px solid var(--border);
   border-radius: 2px;

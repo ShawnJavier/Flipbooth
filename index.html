@@ -422,8 +422,7 @@
           </div>
           <div class="fg"><label for="em">Email Address</label><input type="email" required name="email" id="em"
               placeholder="Alex@example.com" /></div>
-          <div class="frow">
-            <div class="fg">
+          <div class="fg">
               <label for="et">Event Type</label>
               <select name="event_type" id="et" required>
                 <option value="" disabled selected>Select type</option>
@@ -432,8 +431,13 @@
                 <option>Corporate Event</option>
                 <option>Other</option>
               </select>
-            </div>
+            </div>    
+          <div class="frow">
             <div class="fg"><label for="ed">Event Date</label><input type="date" name="event_date"id="ed" required /></div>
+            <div class="fg">
+              <label for="eventTime">Event Start Time</label>
+              <input type="time" id="eventTime" name="event_time" required />
+            </div>
           </div>
           <div class="fg" id="form-group">
             <label for="suburb">Event Location</label>
