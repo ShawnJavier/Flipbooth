@@ -362,3 +362,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+/* Format event date for EmailJS */
+document.getElementById("cform").addEventListener("submit", function() {
+    const dateInput = document.getElementById("ed");
+    const formattedDateInput = document.getElementById("formattedEventDate");
+
+    if (dateInput.value && formattedDateInput) {
+        const parts = dateInput.value.split("-");
+        const date = new Date(
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2])
+        );
+
+        formattedDateInput.value =
+            date.toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+            }).replace(",", "");
+    }
+});
