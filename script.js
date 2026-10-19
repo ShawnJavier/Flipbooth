@@ -34,62 +34,136 @@
 
 
    // validation + shake
-   document.getElementById("cform").addEventListener("submit", function(e) {
-       e.preventDefault();
+   
+const SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyna6ewiDjXiGTGH2kBTSd-F0v2GlVCdlEFIkOdXUktHK4lxAiMNz-zVh6KcBznMp5lNA/exec";
 
-       const form = this;
-       document.body.classList.add("show-errors");
+document.getElementById("cform").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-       let valid = true;
+    const form = this;
+    const submitButton = form.querySelector(".btn-submit");
+    const successMessage = document.getElementById("fsuc");
 
-       // reset old errors
-       document.querySelectorAll(".fg").forEach(fg => {
-           fg.classList.remove("error");
-       });
+    document.body.classList.add("show-errors");
 
-       // check each field manually
-       form.querySelectorAll("input, select, textarea").forEach(el => {
-           if (!el.checkValidity()) {
-               valid = false;
-               el.closest(".fg").classList.add("error");
-           }
-       });
+    let valid = true;
 
-       // shake if invalid
-       if (!valid) {
-           form.classList.remove("shake");
-           void form.offsetWidth;
-           form.classList.add("shake");
-           return;
-       }
+    document.querySelectorAll(".fg").forEach(fg => {
+        fg.classList.remove("error");
+    });
 
-       // EMAILJS (unchanged)
+    form.querySelectorAll("input, select, textarea").forEach(el => {
+        if (!el.checkValidity()) {
+            valid = false;
+            const group = el.closest(".fg");
+            if (group) group.classList.add("error");
+        }
+    });
 
-       const submitButton = document.querySelector(".btn-submit");
-        submitButton.disabled = true;
-       emailjs.sendForm(
-           "service_hswhai5",
-           "template_thwvyh7",
-           form
-       ).then(function() {
+    if (!valid) {
+        form.classList.remove("shake");
+        void form.offsetWidth;
+        form.classList.add("shake");
+        return;
+    }
 
-           return emailjs.sendForm(
-               "service_hswhai5",
-               "template_w33suou",
-               form
-           );
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
 
-       }).then(function() {
+    // Format the event date for your existing EmailJS templates.
+    const dateValue = document.getElementById("ed").value;
+    const formattedDateInput =
+        document.getElementById("formattedEventDate");
 
-           document.querySelector(".btn-submit").style.display = "none";
-           document.getElementById("fsuc").style.display = "block";
+    if (dateValue && formattedDateInput) {
+        const parts = dateValue.split("-");
+        const date = new Date(
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2])
+        );
 
-       }).catch(function(error) {
-           console.error(error);
-           alert("Something went wrong. Try again.");
-       });
+        formattedDateInput.value = date.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+        }).replace(",", "");
+    }
 
-     });
+    // Send the inquiry to Google Sheets.
+    const sheetPromise = fetch(SHEETS_WEB_APP_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify({
+            first_name: document.getElementById("fn").value,
+            last_name: document.getElementById("ln").value,
+            email: document.getElementById("em").value,
+            event_type: document.getElementById("et").value,
+            event_date: dateValue,
+            event_time: document.getElementById("eventTime").value,
+            suburb: document.getElementById("suburb").value,
+            package: document.getElementById("pk").value,
+            message: document.getElementById("ms").value
+        })
+    }).catch(error => {
+        console.error("Google Sheets request failed:", error);
+    });
+
+    try {
+        // Keep your first existing email.
+        await emailjs.sendForm(
+            "service_hswhai5",
+            "template_thwvyh7",
+            form
+        );
+
+        // Keep your second existing email.
+        await emailjs.sendForm(
+            "service_hswhai5",
+            "template_w33suou",
+            form
+        );
+
+        await sheetPromise;
+
+        submitButton.style.display = "none";
+        successMessage.style.display = "block";
+
+    } catch (error) {
+        console.error("EmailJS error:", error);
+
+        submitButton.disabled = false;
+        submitButton.textContent = "Send Enquiry →";
+
+        alert("Something went wrong sending your enquiry. Please try again.");
+    }
+});
+
+
+     /* Format event date for EmailJS */
+document.getElementById("cform").addEventListener("submit", function() {
+    const dateInput = document.getElementById("ed");
+    const formattedDateInput = document.getElementById("formattedEventDate");
+
+    if (dateInput.value && formattedDateInput) {
+        const parts = dateInput.value.split("-");
+        const date = new Date(
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2])
+        );
+
+        formattedDateInput.value =
+            date.toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+            }).replace(",", "");
+    }
+});
 
     /* reveal fallback */
   (function () {
@@ -363,24 +437,3 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-/* Format event date for EmailJS */
-document.getElementById("cform").addEventListener("submit", function() {
-    const dateInput = document.getElementById("ed");
-    const formattedDateInput = document.getElementById("formattedEventDate");
-
-    if (dateInput.value && formattedDateInput) {
-        const parts = dateInput.value.split("-");
-        const date = new Date(
-            Number(parts[0]),
-            Number(parts[1]) - 1,
-            Number(parts[2])
-        );
-
-        formattedDateInput.value =
-            date.toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric"
-            }).replace(",", "");
-    }
-});
